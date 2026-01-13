@@ -1,0 +1,548 @@
+openapi: 3.0.0
+info:
+  title: Food Delivery API
+  description: API for managing food items, user authentication, and shopping cart operations
+  version: 1.0.0
+  contact:
+    name: Food Delivery Support
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:4000/api
+    description: Development server
+
+paths:
+  /food/add:
+    post:
+      summary: Add a new food item
+      description: Add a new food item to the database with image upload
+      operationId: addFood
+      tags:
+        - Food
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+                - description
+                - price
+                - category
+                - image
+              properties:
+                name:
+                  type: string
+                  description: Food item name
+                  example: "Biryani"
+                description:
+                  type: string
+                  description: Food item description
+                  example: "Delicious spiced rice with meat"
+                price:
+                  type: string
+                  description: Food item price
+                  example: "299"
+                category:
+                  type: string
+                  description: Food category
+                  example: "rice"
+                image:
+                  type: string
+                  format: binary
+                  description: Food item image file
+      responses:
+        '200':
+          description: Food item added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Food Added"
+        '400':
+          description: Error adding food item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error"
+
+  /food/list:
+    get:
+      summary: Get all food items
+      description: Retrieve a list of all available food items
+      operationId: listFood
+      tags:
+        - Food
+      responses:
+        '200':
+          description: List of food items retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: "507f1f77bcf86cd799439011"
+                        name:
+                          type: string
+                          example: "Biryani"
+                        description:
+                          type: string
+                          example: "Delicious spiced rice with meat"
+                        price:
+                          type: string
+                          example: "299"
+                        category:
+                          type: string
+                          example: "rice"
+                        image:
+                          type: string
+                          example: "1609459200000biryani.jpg"
+        '400':
+          description: Error retrieving food items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error"
+
+  /food/remove:
+    post:
+      summary: Remove a food item
+      description: Remove a food item from the database by ID
+      operationId: removeFood
+      tags:
+        - Food
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  description: Food item ID to remove
+                  example: "507f1f77bcf86cd799439011"
+      responses:
+        '200':
+          description: Food item removed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Food Removed"
+        '400':
+          description: Error removing food item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error"
+
+  /user/register:
+    post:
+      summary: Register a new user
+      description: Create a new user account with email and password
+      operationId: registerUser
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                  description: User's full name
+                  example: "John Doe"
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                  example: "john@example.com"
+                password:
+                  type: string
+                  format: password
+                  minLength: 6
+                  description: User's password (minimum 6 characters)
+                  example: "password123"
+      responses:
+        '200':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token:
+                    type: string
+                    description: JWT authentication token
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '400':
+          description: Registration failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    enum:
+                      - "User already exists"
+                      - "Please enter a valid email"
+                      - "Please enter a strong password"
+                      - "Error"
+                    example: "User already exists"
+
+  /user/login:
+    post:
+      summary: Login user
+      description: Authenticate user with email and password
+      operationId: loginUser
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                  example: "john@example.com"
+                password:
+                  type: string
+                  format: password
+                  description: User's password
+                  example: "password123"
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token:
+                    type: string
+                    description: JWT authentication token
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '400':
+          description: Login failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    enum:
+                      - "User Doesn't exist"
+                      - "Invalid password"
+                      - "Error"
+                    example: "User Doesn't exist"
+
+  /cart/add:
+    post:
+      summary: Add item to cart
+      description: Add a food item to the user's cart (requires authentication)
+      operationId: addToCart
+      tags:
+        - Cart
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - itemId
+              properties:
+                userId:
+                  type: string
+                  description: User ID
+                  example: "507f1f77bcf86cd799439011"
+                itemId:
+                  type: string
+                  description: Food item ID
+                  example: "507f1f77bcf86cd799439012"
+      responses:
+        '200':
+          description: Item added to cart successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Cart Updated/ Added cart"
+        '400':
+          description: Error adding item to cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error"
+
+  /cart/remove:
+    post:
+      summary: Remove item from cart
+      description: Remove or decrease quantity of a food item from user's cart (requires authentication)
+      operationId: removeFromCart
+      tags:
+        - Cart
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - itemId
+              properties:
+                userId:
+                  type: string
+                  description: User ID
+                  example: "507f1f77bcf86cd799439011"
+                itemId:
+                  type: string
+                  description: Food item ID
+                  example: "507f1f77bcf86cd799439012"
+      responses:
+        '200':
+          description: Item removed from cart successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Removed from cart"
+        '400':
+          description: Error removing item from cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error"
+
+  /cart/get:
+    get:
+      summary: Get user's cart
+      description: Retrieve the current user's shopping cart data (requires authentication)
+      operationId: getCart
+      tags:
+        - Cart
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: User ID
+          example: "507f1f77bcf86cd799439011"
+      responses:
+        '200':
+          description: Cart data retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  cartData:
+                    type: object
+                    description: Cart items with item IDs as keys and quantities as values
+                    example:
+                      "507f1f77bcf86cd799439012": 2
+                      "507f1f77bcf86cd799439013": 1
+        '400':
+          description: Error retrieving cart data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from login or register endpoint
+
+  schemas:
+    Food:
+      type: object
+      required:
+        - name
+        - description
+        - price
+        - category
+        - image
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the food item
+        name:
+          type: string
+          description: Food item name
+        description:
+          type: string
+          description: Food item description
+        price:
+          type: string
+          description: Food item price
+        category:
+          type: string
+          description: Food category
+        image:
+          type: string
+          description: Image filename
+
+    User:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the user
+        name:
+          type: string
+          description: User's full name
+        email:
+          type: string
+          format: email
+          description: User's email address
+        password:
+          type: string
+          format: password
+          description: Hashed password
+        cartData:
+          type: object
+          description: User's shopping cart data
+
+    Cart:
+      type: object
+      description: User's shopping cart
+      properties:
+        itemId:
+          type: integer
+          description: Quantity of the item in cart
+
+tags:
+  - name: Food
+    description: Food item management operations
+  - name: User
+    description: User authentication operations
+  - name: Cart
+    description: Shopping cart operations
