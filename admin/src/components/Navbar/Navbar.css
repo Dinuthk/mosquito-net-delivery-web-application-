@@ -9,6 +9,9 @@
     width: max(10%,80px);
 }
 
-.navbar .profile{
-    width: 40px;
+.navbar .profile {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
 }

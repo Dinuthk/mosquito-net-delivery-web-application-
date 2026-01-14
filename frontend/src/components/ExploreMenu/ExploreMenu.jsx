@@ -5,8 +5,9 @@ import { menu_list } from '../../assets/assets'
 const ExploreMenu = ({category,setCategory}) => {
     return (
         <div className='explore-menu' id='explore-menu'>
-            <h1>Explore our menu</h1>
-            <p className='explore-menu-text' >Choose from a diverse menu featuring a delectable array of dishes. Our mission is to satisfy your cravings and elevate your dining experience, one delicious meal at a time.</p>
+            <h1>Explore Our Products</h1>
+            <p className='explore-menu-text' >Choose from a wide range of high-quality mosquito nets designed to protect your family and give you a peaceful night’s sleep.
+            Our mission is to provide durable, stylish, and affordable mosquito net solutions, delivered right to your doorstep.</p>
             <div className="explore-menu-list">
             {menu_list.map((item,index)=>{
                     return(

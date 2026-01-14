@@ -1,68 +1,73 @@
-.header{
-    height: 34vw;
+.header {
+    /* Increased height for a more impactful hero section */
+    height: 45vw; 
     margin: 30px auto;
-    background-image: url('/header_img2.png') /* no-repeat; */;
-    background-size: contain;
+    background-image: url('/header_img3.png');
+    /* Changed to 'cover' so it fills the taller container better than 'contain' */
+    background-size: cover; 
+    background-position: center;
     position: relative;
     border-radius: 20px;
 }
 
-.header-contents{
+.header-contents {
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: start;
     gap: 1.5vw;
-    max-width: 50%;
-    bottom: 10%;
+    max-width: 55%;
+    /* Positioned slightly higher for better balance */
+    bottom: 15%; 
     left: 6vw;
     animation: fadeIn 3s;
 }
 
-.header-contents h2{
+.header-contents h2 {
+    font-weight: 700; /* Increased weight for better visibility */
+    color: #1a1a1a;   /* Deep charcoal provides better contrast than pure black */
+    font-size: max(4.5vw, 30px);
+    line-height: 1.1;
+    /* Clean text shadow to separate text from background details */
+    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8); 
+}
+
+.header-contents p {
+    color: #333333;
+    font-size: 1.2vw; /* Slightly larger for readability */
     font-weight: 500;
-    color: white;
-    font-size: max(4.5vw,22px);
+    line-height: 1.4;
+    text-shadow: 1px 1px 8px rgba(255, 255, 255, 0.9);
 }
 
-.header-contents p{
-    color: white;
-    font-size: 1vw;
-}
-
-.header-contents button{
+.header-contents button {
     border: none;
-    color: #ce1414;
-    font-weight: 500;
-    padding: 1vw 2.3vw;
-    background-color: white;
-    font-size: max(1vw,13px);
+    color: #ffffff;      /* Changed text to white */
+    font-weight: 600;
+    padding: 1vw 2.5vw;
+    background-color: #ce1414; /* Moved the red to the background for a "Call to Action" look */
+    font-size: max(1vw, 14px);
     border-radius: 50px;
     cursor: pointer;
+    transition: all 0.3s ease; /* Smooth hover transition */
+    box-shadow: 0 4px 15px rgba(206, 20, 20, 0.3);
 }
 
-.header-contents button:hover{
-    background-color: #cc9e9e;
-    font-size: 15px;
+.header-contents button:hover {
+    background-color: #a81010;
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 6px 20px rgba(206, 20, 20, 0.4);
 }
 
-
-
-
-@media (max-width:1050px){
-
-    .header-contents{
-        max-width: 45%;
-    }
+/* Media Queries for Responsiveness */
+@media (max-width: 1050px) {
+    .header { height: 55vw; }
+    .header-contents { max-width: 60%; }
 }
-@media (max-width:750px){
-    .header-contents{
-        max-width: 65%;
-    }
-    .header-contents p{
-        display: none;
-    }
-    .header-contents button{
-        padding: 2vw 4vw;
-    }
+
+@media (max-width: 750px) {
+    .header { height: 70vw; }
+    .header-contents { max-width: 85%; bottom: 10%; }
+    .header-contents p { display: block; font-size: 14px; } /* Keep text visible on mobile */
+    .header-contents h2 { font-size: 24px; }
 }

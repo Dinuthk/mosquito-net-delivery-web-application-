@@ -5,6 +5,8 @@ import profile_image from './profile_image.png'
 import upload_area from './upload_area.png'
 import parcel_icon from './parcel_icon.png'
 import logoo from './logoo.png'
+import logoModified from './logoModified.png'
+import profile_image2 from './profile_image2.png'
 
 export const assets ={
     logo,
@@ -13,7 +15,9 @@ export const assets ={
     order_icon,
     profile_image,
     upload_area,
-    parcel_icon
+    parcel_icon,
+    logoModified,
+    profile_image2
 }
 
 export const url = 'http://localhost:4000'

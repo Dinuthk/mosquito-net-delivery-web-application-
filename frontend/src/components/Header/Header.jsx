@@ -5,9 +5,11 @@ const Header = () => {
   return (
     <div className='header'>
         <div className="header-contents">
-            <h2>Order your favourite food here</h2>
-            <p>Chose from adiverse menu featuring a delectable array of dishes crafted with the finest ingredients and culinary expertise. Our mission is to satisfy your cravings and elevate your dining experience, one delicious meal at a time.</p>
-            <button>View Menu</button>
+            <h2>Protect Your Home from Mosquitoes</h2>
+            <p>Discover premium mosquito nets for beds, windows, and doors. 
+              Easy ordering, fast delivery, and long-lasting protection—because your comfort matters.
+            </p>
+            <button>View Products</button>
         </div>
     </div>
   )

@@ -5,6 +5,11 @@
     align-items: center;
 }
 
+.logo {
+    width: 140px; 
+    height: auto;
+}
+
 
 .navbar-menu{
     display: flex;

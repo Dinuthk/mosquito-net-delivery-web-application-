@@ -63,6 +63,8 @@ import menu_8 from './menu_8.png'
 import logoo from './logoo.png'
 import header_img2 from './header_img2.png'
 
+import logoModified from './logoModified.png'
+
 export const assets = {
 
     header_img2,
@@ -85,40 +87,41 @@ export const assets = {
     profile_icon,
     logout_icon,
     bag_icon,
-    parcel_icon
+    parcel_icon,
+    logoModified
 }
 
 export const menu_list = [
     {
-        menu_name: "Salad",
+        menu_name: "Frame Style Nets",
         menu_image: menu_1
     },
     {
-        menu_name: "Rolls",
+        menu_name: "Box Style Nets",
         menu_image: menu_2
     },
     {
-        menu_name: "Deserts",
+        menu_name: "Normal Nets",
         menu_image: menu_3
     },
     {
-        menu_name: "Sandwich",
+        menu_name: "Printed Nets",
         menu_image: menu_4
     },
     {
-        menu_name: "Cake",
+        menu_name: "Single Bed Nets (S)",
         menu_image: menu_5
     },
     {
-        menu_name: "Pure Veg",
+        menu_name: "Large Size Nets (L)",
         menu_image: menu_6
     },
     {
-        menu_name: "Pasta",
+        menu_name: "Extra Large Nets (XL)",
         menu_image: menu_7
     },
     {
-        menu_name: "Noodles",
+        menu_name: "Double Bed Nets (XXL)",
         menu_image: menu_8
     }
 ]
